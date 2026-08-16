@@ -1,4 +1,4 @@
-# Comfyui--
+# SillyDream-Comfyui-yuan
 
 一些 Comfyui 云端模型的节点与工作流，在去除原有的 Base URL 和模型之后，可以使用自己的模型和 URL。
 
