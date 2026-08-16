@@ -272,7 +272,7 @@ class GeminiApiClient:
             "Content-Type": "application/json",
             "Authorization": f"Bearer {api_key}",
             "X-API-Key": api_key,
-            "X-Banana-Client": "comfyui-banana-li",
+            "X-Banana-Client": "sillydream-banana",
         }
 
     def _resolve_timeout(self, timeout: Optional[Any]) -> Tuple[float, Optional[float]]:
