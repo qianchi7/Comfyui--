@@ -9,6 +9,8 @@ cp -r comfyui-Banana-API-3.5 ComfyUI/custom_nodes/comfyui-Banana-API-3.5
 pip install requests
 ```
 
+本目录下的 `example_workflows/` 会被 ComfyUI 启动时自动扫描并登记到「工作流 → 浏览模板 (Browse Templates)」菜单（模板名 `NanoBanana-API-V3.5`），无需手动拖 json；同样的工作流也放了一份在上级目录的 [`../工作流/`](../工作流) 里。
+
 ## 配置
 
 首次运行会在本目录自动创建示例 `config.ini`：

@@ -43,7 +43,14 @@ pip install requests Pillow numpy
 
 ## 使用工作流示例
 
-把 `工作流/GPT_Image_2 工作流-0816.json` 直接拖进 ComfyUI 网页界面即可加载，按提示填入你自己的 API Key / base_url 后即可使用。`ComfyUI_GPT_Image_2_v3/` 内还自带两个更简单的示例工作流（纯文生图、带参考图）可参考。
+两种方式任选其一，加载后按提示填入你自己的 API Key / base_url 即可使用：
+
+- **菜单加载（推荐）**：重启 ComfyUI 后，顶部菜单 **工作流 → 浏览模板 (Browse Templates)**，可选：
+  - `GPT-Image-2` — 完整工作流
+  - `GPT-Image-2-Text2Img` — 最简纯文生图
+  - `GPT-Image-2-Reference` — 最简带参考图
+  （节点包内的 `example_workflows/` 会被 ComfyUI 自动登记为模板，随 `git pull` 一起更新）
+- **手动拖入**：把 `工作流/GPT_Image_2 工作流-0816.json` 直接拖进 ComfyUI 网页界面
 
 ## 权威尺寸表（分辨率 / 比例互斥规则）
 

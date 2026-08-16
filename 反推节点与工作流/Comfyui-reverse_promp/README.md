@@ -7,7 +7,8 @@
 1. **图像反推 (Image Prompt Reverse)** — 通过任意 HTTP API 将 ComfyUI 中的图像反推为详细提示词
 2. **文本扩写 (Text Expand)** — 对输入的文本进行扩写，使其更加详细
 
-工作流示例放在上一级目录的 `../工作流/` 文件夹里，`prompt_expander.html` 是配套的独立网页调试小工具（不依赖 ComfyUI，浏览器直接打开即可）。
+工作流示例：本目录下的 `example_workflows/` 会被 ComfyUI 自动登记到「工作流 → 浏览模板」菜单（模板名 `Image-Prompt-Reverse`）；同样的 json 也放了一份在上一级目录的 `../工作流/` 里可手动拖入。
+`prompt_expander.html` 是配套的独立网页调试小工具（不依赖 ComfyUI，浏览器直接打开即可）。
 
 ## 安装
 

@@ -35,7 +35,11 @@ pip install requests
 
 ## 使用工作流示例
 
-把 `工作流/▶NanoBanana-API-V3.5工作流-0816 .json` 直接拖进 ComfyUI 网页界面即可加载，按提示填入你自己的 API Key / Base URL 后即可使用。
+两种方式任选其一，加载后按提示填入你自己的 API Key / Base URL 即可使用：
+
+- **菜单加载（推荐）**：重启 ComfyUI 后，顶部菜单 **工作流 → 浏览模板 (Browse Templates)** 里选 `NanoBanana-API-V3.5`
+  （节点包内的 `example_workflows/` 会被 ComfyUI 自动登记为模板，随 `git pull` 一起更新）
+- **手动拖入**：把 `工作流/▶NanoBanana-API-V3.5工作流-0816 .json` 直接拖进 ComfyUI 网页界面
 
 ## 节点参数（Banana Gemini Image Generator）
 

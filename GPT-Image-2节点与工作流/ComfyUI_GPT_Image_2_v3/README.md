@@ -15,7 +15,7 @@ pip install requests Pillow numpy
 - `endpoint_diagnostics.py` — 502/4xx 全量诊断（server / cf-ray / x-request-id / body），永不自动重试
 - `config_manager.py` — 非敏感配置持久化（`base_url`、默认模型/分辨率等），**`api_key` 永不落盘**
 - `web/gpt_image_2_size_lock.js` — 前端分辨率/比例互斥下拉框
-- `example_text2img_workflow.json` / `example_reference_workflow.json` — 内置的简单示例工作流
+- `example_workflows/` — 内置示例工作流（`GPT-Image-2.json` 完整流程、`GPT-Image-2-Text2Img.json` 最简文生图、`GPT-Image-2-Reference.json` 最简参考图）。ComfyUI 启动时会自动扫描本目录并登记到「工作流 → 浏览模板」菜单，无需手动拖 json
 
 ## 配置文件位置（自动写入，不含 API Key）
 
