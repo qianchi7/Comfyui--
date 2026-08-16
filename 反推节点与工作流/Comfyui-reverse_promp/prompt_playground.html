@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SillyDream 提示词调试台</title>
+<style>
+  :root{color-scheme:light;--bd:#d9dde3;--bg:#f6f7f9;--fg:#1b1f24;--mut:#6b7280;--acc:#2f6feb;--err:#c0342b;--ok:#1a7f4b}
+  *{box-sizing:border-box}
+  body{margin:0;padding:24px;background:var(--bg);color:var(--fg);
+       font:14px/1.6 -apple-system,"Segoe UI","Noto Sans SC","Microsoft YaHei",sans-serif}
+  .wrap{max-width:1080px;margin:0 auto}
+  h1{font-size:19px;margin:0 0 4px}
+  .sub{color:var(--mut);font-size:13px;margin-bottom:18px}
+  .grid{display:grid;grid-template-columns:340px 1fr;gap:18px;align-items:start}
+  @media(max-width:860px){.grid{grid-template-columns:1fr}}
+  .card{background:#fff;border:1px solid var(--bd);border-radius:10px;padding:16px}
+  .card h2{font-size:13px;margin:0 0 12px;color:var(--mut);font-weight:600;letter-spacing:.04em}
+  label{display:block;font-size:12px;color:var(--mut);margin:10px 0 4px}
+  label:first-of-type{margin-top:0}
+  input,select,textarea{width:100%;padding:7px 9px;border:1px solid var(--bd);border-radius:6px;
+    font:inherit;font-size:13px;background:#fff;color:var(--fg)}
+  textarea{resize:vertical;font-family:ui-monospace,Consolas,"Noto Sans Mono",monospace;font-size:12.5px}
+  .row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+  button{padding:9px 16px;border:0;border-radius:6px;background:var(--acc);color:#fff;
+    font:inherit;font-weight:600;cursor:pointer}
+  button:disabled{opacity:.5;cursor:default}
+  button.ghost{background:#fff;color:var(--fg);border:1px solid var(--bd);font-weight:500;padding:6px 12px}
+  .bar{display:flex;gap:10px;align-items:center;margin-top:14px;flex-wrap:wrap}
+  .stat{font-size:12px;color:var(--mut)}
+  .stat.err{color:var(--err)}
+  .stat.ok{color:var(--ok)}
+  pre#out{white-space:pre-wrap;word-break:break-word;background:#fbfcfd;border:1px solid var(--bd);
+    border-radius:8px;padding:14px;min-height:260px;margin:0;font-size:13px;line-height:1.7}
+  .drop{border:1.5px dashed var(--bd);border-radius:8px;padding:14px;text-align:center;
+    color:var(--mut);font-size:12.5px;cursor:pointer;background:#fbfcfd}
+  .drop.on{border-color:var(--acc);color:var(--acc)}
+  .thumb{margin-top:10px;display:none}
+  .thumb img{max-width:100%;max-height:170px;border-radius:6px;border:1px solid var(--bd);display:block}
+  .hint{font-size:11.5px;color:var(--mut);margin-top:8px;line-height:1.5}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>SillyDream 提示词调试台</h1>
+  <div class="sub">不依赖 ComfyUI 的独立网页工具，直接用浏览器打开即可。对接任意 OpenAI 兼容网关，用来快速试提示词。</div>
+
+  <div class="grid">
+    <div class="card">
+      <h2>连接设置</h2>
+      <label>网关地址</label>
+      <input id="url" placeholder="http://IP:端口" value="http://127.0.0.1:3000">
+      <label>API Key（留空则不发送）</label>
+      <input id="key" type="password" placeholder="sk-...">
+      <label>模型名</label>
+      <input id="model" value="gpt-4o-mini">
+
+      <div class="row3" style="margin-top:12px">
+        <div><label>temperature</label><input id="temp" type="number" step="0.05" min="0" max="2" value="0.7"></div>
+        <div><label>top_p</label><input id="topp" type="number" step="0.05" min="0" max="1" value="1"></div>
+        <div><label>max_tokens</label><input id="maxtok" type="number" step="64" min="0" value="1024"></div>
+      </div>
+
+      <label style="margin-top:14px">图片（可选，用于反推）</label>
+      <div class="drop" id="drop">点击选择，或把图片拖进来 / 直接 Ctrl+V 粘贴</div>
+      <input id="file" type="file" accept="image/*" hidden>
+      <div class="thumb" id="thumb"><img id="preview" alt=""><button class="ghost" id="clearimg" style="margin-top:8px">移除图片</button></div>
+      <div class="hint">选了图片就走「图像反推」，不选就是纯文本对话 / 扩写。设置会记在本机浏览器里。</div>
+    </div>
+
+    <div class="card">
+      <h2>提示词</h2>
+      <label>系统提示词</label>
+      <textarea id="sys" rows="4">你是一位资深的图像分析师。观察用户给出的图片，写出一段可以直接用于文生图模型的提示词：覆盖主体、外观细节、动作与姿态、服装、场景与环境、光线、色调、镜头与构图、整体画面风格。只输出提示词正文，不要解释。</textarea>
+      <label>用户输入</label>
+      <textarea id="usr" rows="4">请反推这张图片的提示词。</textarea>
+
+      <div class="bar">
+        <button id="send">发送</button>
+        <button class="ghost" id="copy">复制结果</button>
+        <button class="ghost" id="reset">恢复默认</button>
+        <span class="stat" id="stat"></span>
+      </div>
+
+      <label style="margin-top:16px">结果</label>
+      <pre id="out"></pre>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  const $ = id => document.getElementById(id);
+  const FIELDS = ["url","key","model","temp","topp","maxtok","sys","usr"];
+  const STORE = "sillydream.promptlab.v1";
+  const DEFAULTS = {};
+  FIELDS.forEach(f => DEFAULTS[f] = $(f).value);
+
+  let imageDataUrl = null;
+
+  // ---- 设置持久化 ----
+  function save(){
+    const o = {}; FIELDS.forEach(f => o[f] = $(f).value);
+    try{ localStorage.setItem(STORE, JSON.stringify(o)); }catch(e){}
+  }
+  function load(){
+    try{
+      const o = JSON.parse(localStorage.getItem(STORE) || "{}");
+      FIELDS.forEach(f => { if(typeof o[f] === "string") $(f).value = o[f]; });
+    }catch(e){}
+  }
+  load();
+  FIELDS.forEach(f => $(f).addEventListener("input", save));
+
+  // ---- 地址补全，和节点里的规则保持一致 ----
+  function chatUrl(raw){
+    let t = (raw || "").trim();
+    if(!t) throw new Error("网关地址不能为空");
+    if(!/:\/\//.test(t)) t = "http://" + t;
+    const u = new URL(t);
+    let p = u.pathname.replace(/\/+$/, "");
+    if(p.endsWith("/chat/completions")) {}
+    else if(p.endsWith("/v1")) p += "/chat/completions";
+    else p += "/v1/chat/completions";
+    return u.origin + p;
+  }
+
+  // ---- 图片 ----
+  function useFile(file){
+    if(!file || !/^image\//.test(file.type)) return;
+    const fr = new FileReader();
+    fr.onload = e => {
+      imageDataUrl = e.target.result;
+      $("preview").src = imageDataUrl;
+      $("thumb").style.display = "block";
+      $("drop").textContent = file.name + "（" + Math.round(file.size/1024) + " KB）";
+    };
+    fr.readAsDataURL(file);
+  }
+  $("drop").onclick = () => $("file").click();
+  $("file").onchange = e => useFile(e.target.files[0]);
+  $("clearimg").onclick = () => {
+    imageDataUrl = null; $("file").value = ""; $("thumb").style.display = "none";
+    $("drop").textContent = "点击选择，或把图片拖进来 / 直接 Ctrl+V 粘贴";
+  };
+  ["dragenter","dragover"].forEach(ev => $("drop").addEventListener(ev, e => {
+    e.preventDefault(); $("drop").classList.add("on");
+  }));
+  ["dragleave","drop"].forEach(ev => $("drop").addEventListener(ev, e => {
+    e.preventDefault(); $("drop").classList.remove("on");
+  }));
+  $("drop").addEventListener("drop", e => useFile(e.dataTransfer.files[0]));
+  document.addEventListener("paste", e => {
+    for(const item of (e.clipboardData || {}).items || []){
+      if(item.type && item.type.startsWith("image/")){ useFile(item.getAsFile()); break; }
+    }
+  });
+
+  // ---- 结果取文 ----
+  function pickText(d){
+    const c = d && d.choices && d.choices[0];
+    const flat = v => {
+      if(typeof v === "string") return v.trim();
+      if(Array.isArray(v)) return v.map(x => typeof x === "string" ? x : (x && (x.text || x.content) || "")).join("").trim();
+      return "";
+    };
+    if(c){
+      if(c.message){
+        return flat(c.message.content) || flat(c.message.reasoning_content) || flat(c.message.reasoning) || "";
+      }
+      if(c.text) return flat(c.text);
+      if(c.delta) return flat(c.delta.content);
+    }
+    return flat(d && (d.output_text || d.content || d.result));
+  }
+
+  function setStat(msg, kind){ const s = $("stat"); s.textContent = msg; s.className = "stat" + (kind ? " " + kind : ""); }
+
+  // ---- 发送 ----
+  $("send").onclick = async () => {
+    let url;
+    try{ url = chatUrl($("url").value); }
+    catch(err){ setStat(err.message, "err"); return; }
+
+    const model = $("model").value.trim();
+    if(!model){ setStat("模型名不能为空", "err"); return; }
+
+    const content = imageDataUrl
+      ? [{type:"text", text:$("usr").value}, {type:"image_url", image_url:{url:imageDataUrl}}]
+      : $("usr").value;
+
+    const body = {
+      model,
+      messages: [{role:"system", content:$("sys").value}, {role:"user", content}],
+      stream: false,
+      temperature: parseFloat($("temp").value) || 0,
+      top_p: parseFloat($("topp").value) || 1
+    };
+    const mt = parseInt($("maxtok").value, 10);
+    if(mt > 0) body.max_tokens = mt;
+
+    const headers = {"Content-Type":"application/json"};
+    const key = $("key").value.trim();
+    if(key) headers["Authorization"] = "Bearer " + key;
+
+    $("send").disabled = true;
+    setStat("请求中…"); $("out").textContent = "";
+    const t0 = performance.now();
+    try{
+      const res = await fetch(url, {method:"POST", headers, body:JSON.stringify(body)});
+      const raw = await res.text();
+      if(!res.ok){
+        $("out").textContent = raw;
+        setStat("HTTP " + res.status + " — " + url, "err");
+        return;
+      }
+      let data;
+      try{ data = JSON.parse(raw); }
+      catch(e){
+        $("out").textContent = raw.slice(0, 2000);
+        setStat("响应不是 JSON，网关地址可能指向了网页 — " + url, "err");
+        return;
+      }
+      if(data.error){
+        $("out").textContent = JSON.stringify(data, null, 2);
+        setStat("网关返回错误", "err");
+        return;
+      }
+      const text = pickText(data);
+      if(text){
+        $("out").textContent = text;
+        const ms = Math.round(performance.now() - t0);
+        const u = data.usage || {};
+        setStat("完成 " + ms + " ms" + (u.total_tokens ? "，用量 " + u.total_tokens + " tokens" : ""), "ok");
+      }else{
+        $("out").textContent = JSON.stringify(data, null, 2);
+        setStat("响应里没有正文，已显示原始 JSON", "err");
+      }
+    }catch(err){
+      setStat("请求失败：" + err.message + "（本地打开网页时常见原因是网关未放开 CORS）", "err");
+    }finally{
+      $("send").disabled = false;
+    }
+  };
+
+  $("copy").onclick = async () => {
+    const t = $("out").textContent;
+    if(!t) return;
+    try{ await navigator.clipboard.writeText(t); setStat("已复制", "ok"); }
+    catch(e){ setStat("复制失败，请手动选中", "err"); }
+  };
+
+  $("reset").onclick = () => {
+    FIELDS.forEach(f => $(f).value = DEFAULTS[f]);
+    save(); setStat("已恢复默认设置");
+  };
+})();
+</script>
+</body>
+</html>
