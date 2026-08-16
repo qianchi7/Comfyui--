@@ -26,6 +26,7 @@ _THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 # 只登记真正的节点代码目录，纯工作流/资源目录不用登记。
 _NODE_PACKAGE_DIRS = [
     os.path.join(_THIS_DIR, "反推节点与工作流", "Comfyui-reverse_promp"),
+    os.path.join(_THIS_DIR, "Banana节点与工作流", "comfyui-Banana-API-3.5"),
 ]
 
 

@@ -1,0 +1,41 @@
+# comfyui-Banana-API-3.5
+
+ComfyUI 自定义节点：调用 Google NanoBanana(Gemini) 文生图/图生图接口，内置批量并发调度与端点延迟测速。
+
+节点会自动加载本文件夹内除若干公共模块外的所有 `.py` 文件，可作为独立 custom_nodes 子目录直接安装：
+
+```bash
+cp -r comfyui-Banana-API-3.5 ComfyUI/custom_nodes/comfyui-Banana-API-3.5
+pip install requests
+```
+
+## 配置
+
+首次运行会在本目录自动创建示例 `config.ini`：
+
+```ini
+[gemini]
+api_key = your-api-key-here
+api_base_url = http://your-gateway:port
+max_workers = 4
+network_workers_cap = 4
+```
+
+- `api_key` / `api_base_url` 也可以直接在节点面板里临时填写，节点输入优先于 config.ini
+- `max_workers` / `network_workers_cap`：批量生成时的并发上限
+- 可选 `bypass_proxy = true`：绕过本机系统代理直连
+
+## 节点
+
+- **Banana Gemini Image Generator**（`image/ai_generation`）：主生成节点，详细参数见上级目录 [`../README.md`](../README.md)
+- **Banana Endpoint Tester**（`Banana/tools`）：独立的 Base URL 测速节点，不发起生图请求
+
+## 依赖
+
+```
+requests>=2.20.0
+```
+
+## License
+
+MIT
