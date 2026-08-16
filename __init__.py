@@ -27,6 +27,7 @@ _THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 _NODE_PACKAGE_DIRS = [
     os.path.join(_THIS_DIR, "反推节点与工作流", "Comfyui-reverse_promp"),
     os.path.join(_THIS_DIR, "Banana节点与工作流", "comfyui-Banana-API-3.5"),
+    os.path.join(_THIS_DIR, "GPT-Image-2节点与工作流", "ComfyUI_GPT_Image_2_v3"),
 ]
 
 

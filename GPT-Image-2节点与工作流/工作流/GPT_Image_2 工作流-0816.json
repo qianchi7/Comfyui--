@@ -1,0 +1,888 @@
+{
+  "id": "c6b9b5ce-e0fc-4c7e-a56a-de95e002dccf",
+  "revision": 0,
+  "last_node_id": 29,
+  "last_link_id": 5,
+  "nodes": [
+    {
+      "id": 3,
+      "type": "SaveImage",
+      "pos": [
+        -5528.966273947207,
+        1508.025385244243
+      ],
+      "size": [
+        270,
+        270
+      ],
+      "flags": {},
+      "order": 18,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 2
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.7.0",
+        "Node name for S&R": "SaveImage"
+      },
+      "widgets_values": [
+        "ComfyUI"
+      ]
+    },
+    {
+      "id": 2,
+      "type": "LoadImage",
+      "pos": [
+        -6368.807725505138,
+        1512.307833582493
+      ],
+      "size": [
+        270,
+        314
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            1
+          ]
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.7.0",
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "IMG_20250122_105714.png",
+        "image"
+      ]
+    },
+    {
+      "id": 14,
+      "type": "PrimitiveString",
+      "pos": [
+        -6713.0156540433745,
+        1844.8920219993142
+      ],
+      "size": [
+        270,
+        58
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": []
+        }
+      ],
+      "title": "备用路线",
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.7.0",
+        "Node name for S&R": "PrimitiveString"
+      },
+      "widgets_values": [
+        "http://154.29.148.56:12001"
+      ],
+      "color": "#323",
+      "bgcolor": "#535",
+      "shape": 2
+    },
+    {
+      "id": 15,
+      "type": "PrimitiveString",
+      "pos": [
+        -6713.0156540433745,
+        1946.2425514745187
+      ],
+      "size": [
+        270,
+        58
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": []
+        }
+      ],
+      "title": "海外路线",
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.7.0",
+        "Node name for S&R": "PrimitiveString"
+      },
+      "widgets_values": [
+        "http://38.145.218.40:12001"
+      ],
+      "color": "#323",
+      "bgcolor": "#535",
+      "shape": 2
+    },
+    {
+      "id": 13,
+      "type": "PrimitiveString",
+      "pos": [
+        -6713.0156540433745,
+        1642.1909630489054
+      ],
+      "size": [
+        270,
+        58
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": []
+        }
+      ],
+      "title": "主路线",
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.7.0",
+        "Node name for S&R": "PrimitiveString"
+      },
+      "widgets_values": [
+        "http://64.186.244.43:12001"
+      ],
+      "color": "#323",
+      "bgcolor": "#535",
+      "shape": 2
+    },
+    {
+      "id": 17,
+      "type": "PrimitiveString",
+      "pos": [
+        -6714.97171588124,
+        1497.5127411987473
+      ],
+      "size": [
+        270,
+        58
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": [
+            3
+          ]
+        }
+      ],
+      "title": "api_key(分组default分组或不选)",
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.7.0",
+        "Node name for S&R": "PrimitiveString"
+      },
+      "widgets_values": [
+        ""
+      ],
+      "color": "#233",
+      "bgcolor": "#355"
+    },
+    {
+      "id": 16,
+      "type": "PrimitiveString",
+      "pos": [
+        -6713.0156540433745,
+        1743.5414925241098
+      ],
+      "size": [
+        270,
+        58
+      ],
+      "flags": {
+        "collapsed": false
+      },
+      "order": 5,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": [
+            4
+          ]
+        }
+      ],
+      "title": "次级路线",
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.7.0",
+        "Node name for S&R": "PrimitiveString"
+      },
+      "widgets_values": [
+        "https://179.255.148.127:12001"
+      ],
+      "color": "#323",
+      "bgcolor": "#535",
+      "shape": 2
+    },
+    {
+      "id": 11,
+      "type": "PrimitiveString",
+      "pos": [
+        -6715.426965750901,
+        2116.0841654500837
+      ],
+      "size": [
+        270,
+        58
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": null
+        }
+      ],
+      "title": "主推 一次扣5，0.125元",
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.7.0",
+        "Node name for S&R": "PrimitiveString"
+      },
+      "widgets_values": [
+        "「KB」gpt-image-2"
+      ]
+    },
+    {
+      "id": 18,
+      "type": "PrimitiveString",
+      "pos": [
+        -6715.426965750901,
+        2317.2400726008327
+      ],
+      "size": [
+        270,
+        58
+      ],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": null
+        }
+      ],
+      "title": "综合  一次扣5，0.15元 YS Adobe",
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.7.0",
+        "Node name for S&R": "PrimitiveString"
+      },
+      "widgets_values": [
+        "「YS」gpt-image-2"
+      ]
+    },
+    {
+      "id": 26,
+      "type": "PrimitiveString",
+      "pos": [
+        -6715.426965750901,
+        2417.8180261762072
+      ],
+      "size": [
+        270,
+        58
+      ],
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": null
+        }
+      ],
+      "title": "YS 一次扣7 0.175元 支持high",
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.7.0",
+        "Node name for S&R": "PrimitiveString"
+      },
+      "widgets_values": [
+        "「YS」gpt-image-2-high"
+      ]
+    },
+    {
+      "id": 27,
+      "type": "PrimitiveString",
+      "pos": [
+        -6405.7801969198545,
+        2120.3316837203215
+      ],
+      "size": [
+        270,
+        58
+      ],
+      "flags": {},
+      "order": 9,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": null
+        }
+      ],
+      "title": "YS Codex Pro号池",
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.7.0",
+        "Node name for S&R": "PrimitiveString"
+      },
+      "widgets_values": [
+        "「YS」gpt-image-2-Codex"
+      ]
+    },
+    {
+      "id": 20,
+      "type": "PrimitiveString",
+      "pos": [
+        -6405.7801969198545,
+        2233.5521356440827
+      ],
+      "size": [
+        270,
+        58
+      ],
+      "flags": {},
+      "order": 10,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": null
+        }
+      ],
+      "title": "Codex Pro 号池",
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.7.0",
+        "Node name for S&R": "PrimitiveString"
+      },
+      "widgets_values": [
+        "「CX」gpt-image-2"
+      ]
+    },
+    {
+      "id": 19,
+      "type": "PrimitiveString",
+      "pos": [
+        -7011.2362050317215,
+        2115.8954336351576
+      ],
+      "size": [
+        270,
+        58
+      ],
+      "flags": {},
+      "order": 11,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": null
+        }
+      ],
+      "title": "YS 反代 仅1K绘图，一次1.5",
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.7.0",
+        "Node name for S&R": "PrimitiveString"
+      },
+      "widgets_values": [
+        "「YS」gpt-image-2-T"
+      ]
+    },
+    {
+      "id": 22,
+      "type": "PrimitiveString",
+      "pos": [
+        -7011.2362050317215,
+        2241.913108899407
+      ],
+      "size": [
+        270,
+        58
+      ],
+      "flags": {},
+      "order": 12,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": null
+        }
+      ],
+      "title": "仅1K 一次扣1 0.025",
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.7.0",
+        "Node name for S&R": "PrimitiveString"
+      },
+      "widgets_values": [
+        "「1K」gpt-image-2"
+      ]
+    },
+    {
+      "id": 21,
+      "type": "PrimitiveString",
+      "pos": [
+        -7011.2362050317215,
+        2367.9307841636546
+      ],
+      "size": [
+        270,
+        58
+      ],
+      "flags": {},
+      "order": 13,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": null
+        }
+      ],
+      "title": "价格贵，不推荐 一次2.5",
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.7.0",
+        "Node name for S&R": "PrimitiveString"
+      },
+      "widgets_values": [
+        "「CS」gpt-image-2"
+      ]
+    },
+    {
+      "id": 9,
+      "type": "PrimitiveString",
+      "pos": [
+        -6715.426965750901,
+        2216.662119025458
+      ],
+      "size": [
+        270,
+        58
+      ],
+      "flags": {},
+      "order": 14,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": [
+            5
+          ]
+        }
+      ],
+      "title": "其次 一次扣6，0.15元",
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.7.0",
+        "Node name for S&R": "PrimitiveString"
+      },
+      "widgets_values": [
+        "「XJ」gpt-image-2"
+      ]
+    },
+    {
+      "id": 1,
+      "type": "GPTImage2Generator",
+      "pos": [
+        -5968.4821738366345,
+        1513.2350996021373
+      ],
+      "size": [
+        400,
+        874
+      ],
+      "flags": {},
+      "order": 17,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image_1",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": 1
+        },
+        {
+          "name": "image_2",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "image_3",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "image_4",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "image_5",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "image_6",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "image_7",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "image_8",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "image_9",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "image_10",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "image_11",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "image_12",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "image_13",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "image_14",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "image_15",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "image_16",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "api_key",
+          "type": "STRING",
+          "widget": {
+            "name": "api_key"
+          },
+          "link": 3
+        },
+        {
+          "name": "base_url",
+          "type": "STRING",
+          "widget": {
+            "name": "base_url"
+          },
+          "link": 4
+        },
+        {
+          "name": "model",
+          "type": "STRING",
+          "widget": {
+            "name": "model"
+          },
+          "link": 5
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            2
+          ]
+        },
+        {
+          "name": "INFO_JSON",
+          "type": "STRING",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "GPTImage2Generator"
+      },
+      "widgets_values": [
+        "",
+        "http://38.145.218.40:12001",
+        "「XJ」gpt-image-2",
+        "改为正对镜头",
+        "",
+        "2K",
+        "16:9",
+        "medium",
+        1,
+        179623584693793,
+        "randomize",
+        "none",
+        true,
+        true,
+        "b64_json",
+        "reference",
+        0.7,
+        900,
+        true,
+        "/v1/images/edits"
+      ]
+    },
+    {
+      "id": 28,
+      "type": "PrimitiveString",
+      "pos": [
+        -7015.470791025361,
+        1969.0498827385684
+      ],
+      "size": [
+        270,
+        58
+      ],
+      "flags": {},
+      "order": 15,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": null
+        }
+      ],
+      "title": "顶级官网直连，4.7RMB兑1美金",
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.7.0",
+        "Node name for S&R": "PrimitiveString"
+      },
+      "widgets_values": [
+        "gpt-image-2-official"
+      ]
+    },
+    {
+      "id": 6,
+      "type": "Note",
+      "pos": [
+        -7042.989480860269,
+        1505.4559150370494
+      ],
+      "size": [
+        313.72398521347804,
+        405.4710633822626
+      ],
+      "flags": {},
+      "order": 16,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "properties": {},
+      "widgets_values": [
+        "由于官方限制，目前官渠无法绘制4K分辨率图片，故主要渠道均为Adobe\nBase URL如果不通请关闭代理，或者开启TUN模式，或开启绕过代理\n\nKB和XJ为主要渠道，其他小众渠道仅尝试，生产力为主要可以直接用KB和XJ，YS high为最高质量\n\n所有模型均不进行二次超分，以渠道原生画质直接发往用户\n\n1K\n1024×1024，1024×1536，1024×3072\n2K\n1536×1024，2048×1152，1152×2048，2048×1360，1360×2048，2688×1152，2048×1536，1536×2048，2048×2048\n4K\n1280×3840，3840×1280，3840×1648，3520×2352，2352×3520，3312×2480，2480×3312，3840×2160，2160×3840\n如上为官方支持的尺寸，若不合理搭配则会报错，无法绘制\n\n不是每个比例都有4K，所以不是每个尺寸都能选4K，在更换不同比例的时候选项也不一样\n\n官网直连一般不推荐使用，一次成本大概是2元RMB\n\n看不懂的配置不建议调，最好就这个配置\n\n需要文生图不要遮盖，直接把链接image的线删掉"
+      ],
+      "color": "#432",
+      "bgcolor": "#653"
+    }
+  ],
+  "links": [
+    [
+      1,
+      2,
+      0,
+      1,
+      0,
+      "IMAGE"
+    ],
+    [
+      2,
+      1,
+      0,
+      3,
+      0,
+      "IMAGE"
+    ],
+    [
+      3,
+      17,
+      0,
+      1,
+      16,
+      "STRING"
+    ],
+    [
+      4,
+      16,
+      0,
+      1,
+      17,
+      "STRING"
+    ],
+    [
+      5,
+      9,
+      0,
+      1,
+      18,
+      "STRING"
+    ]
+  ],
+  "groups": [
+    {
+      "id": 1,
+      "title": "Base URL",
+      "bounding": [
+        -6721.644854375799,
+        1569.9617757896453,
+        290,
+        465.528484288236
+      ],
+      "color": "#3f789e",
+      "font_size": 24,
+      "flags": {}
+    },
+    {
+      "id": 2,
+      "title": "可4K绘图",
+      "bounding": [
+        -6725.426965750901,
+        2042.4841654500851,
+        302.18578916761726,
+        443.3338607261236
+      ],
+      "color": "#3f789e",
+      "font_size": 24,
+      "flags": {}
+    },
+    {
+      "id": 3,
+      "title": "官渠2K",
+      "bounding": [
+        -6415.7801969198545,
+        2046.7316837203211,
+        298.2586797295171,
+        254.82045192376117
+      ],
+      "color": "#3f789e",
+      "font_size": 24,
+      "flags": {}
+    },
+    {
+      "id": 4,
+      "title": "仅可1K",
+      "bounding": [
+        -7021.2362050317215,
+        2042.2954336351597,
+        290.6219784024652,
+        393.63535052849613
+      ],
+      "color": "#3f789e",
+      "font_size": 24,
+      "flags": {}
+    }
+  ],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 0.7247295000000239,
+      "offset": [
+        7470.972003434327,
+        -1287.5921990984534
+      ]
+    },
+    "workflowRendererVersion": "LG",
+    "frontendVersion": "1.35.9"
+  },
+  "version": 0.4
+}
