@@ -4,6 +4,18 @@
 
 如果感兴趣也可以尝试一下注册我的官网：https://wish.sillydream.top
 
+## 📢 三套节点已拆分为独立仓库，并上架 ComfyUI 官方节点库
+
+现在**推荐直接在 ComfyUI-Manager 的搜索框里搜索安装**（不用再手动填 Git URL），三套节点可以单独装、单独更新：
+
+| 节点 | Manager 里搜 | 独立仓库 |
+|---|---|---|
+| 图像反推 / 文本扩写 | `SillyDream Prompt Reverse` | [ComfyUI-SillyDream-PromptReverse](https://github.com/qianchi7/ComfyUI-SillyDream-PromptReverse) |
+| NanoBanana (Gemini) 文生图/图生图 | `SillyDream Banana` | [ComfyUI-SillyDream-Banana](https://github.com/qianchi7/ComfyUI-SillyDream-Banana) |
+| GPT-Image-2 文生图/图生图 | `SillyDream GPT-Image-2` | [ComfyUI-SillyDream-GPT-Image-2](https://github.com/qianchi7/ComfyUI-SillyDream-GPT-Image-2) |
+
+本仓库继续保留，作为「一次装齐全部节点」的合集版，已经装了的用户不受影响、照常 `git pull` 更新即可。
+
 ## 仓库结构
 
 每一套节点/工作流放在各自的子文件夹中，子文件夹里有各自的 README 说明具体用法：
