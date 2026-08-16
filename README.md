@@ -9,16 +9,20 @@
 每一套节点/工作流放在各自的子文件夹中，子文件夹里有各自的 README 说明具体用法：
 
 - [`反推节点与工作流/`](./反推节点与工作流) — 图像反推 / 文本扩写节点，通过任意 OpenAI 兼容网关调用视觉/文本模型
+  - [`Comfyui-reverse_promp/`](./反推节点与工作流/Comfyui-reverse_promp) — custom nodes 代码（自包含，可单独复制进 `custom_nodes` 使用）
+  - [`工作流/`](./反推节点与工作流/工作流) — 配套的工作流 json 示例
 
 ## 安装
 
-把整个仓库 clone 到 ComfyUI 的 `custom_nodes` 目录下：
+**方式一：只装某一套节点** —— 把对应的 `Comfyui-reverse_promp` 之类的 custom nodes 子文件夹复制/软链到 `ComfyUI/custom_nodes/` 下即可，具体见各子项目自己的 README。
+
+**方式二：把整个仓库当成一个 custom node 包装进去**（好处是以后仓库里新增的所有节点都会一起被加载、一起更新）：
 
 ```bash
-git clone https://github.com/qianchi7/Comfyui--.git ComfyUI/custom_nodes/Comfyui--
+git clone https://github.com/qianchi7/SillyDream-ComfyUI-Cloud.git ComfyUI/custom_nodes/SillyDream-ComfyUI-Cloud
 ```
 
-重启 ComfyUI 即可自动加载仓库内所有节点。
+重启 ComfyUI 即可自动加载仓库内所有节点（根目录的 `__init__.py` 会自动汇总各子文件夹里的节点包）。
 
 ## 自动更新
 
@@ -27,7 +31,7 @@ git clone https://github.com/qianchi7/Comfyui--.git ComfyUI/custom_nodes/Comfyui
 只需要在 Manager 里点击对应节点的 **Update** 按钮（本质是 `git pull`），或者手动在该目录下执行：
 
 ```bash
-cd ComfyUI/custom_nodes/Comfyui--
+cd ComfyUI/custom_nodes/SillyDream-ComfyUI-Cloud
 git pull
 ```
 

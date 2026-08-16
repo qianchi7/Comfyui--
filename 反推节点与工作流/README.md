@@ -2,19 +2,40 @@
 
 通过任意 OpenAI 兼容的 HTTP API（New-API / One-API / ModelScope 等网关）把 ComfyUI 中的图像反推为详细提示词，或对已有文本进行扩写。
 
-包含两个节点：
+本目录下分两个文件夹：
 
-1. **图像反推**（Image Prompt Reverse）
-   - 输入一张图片，输出详细的中/英文提示词
-   - 系统提示词与用户指令提示词分离，可自定义
-   - 支持 `top_p` / `temperature` / `seed` / `max_tokens` 参数
-2. **文本扩写**（Text Expand）
-   - 对输入文本进行扩写，使描述更详细
-   - 内置扩写提示词，也可自行调整
+- [`Comfyui-reverse_promp/`](./Comfyui-reverse_promp) — **custom nodes 代码**，自包含、可独立安装的 ComfyUI 节点包（文件夹名即建议的 custom_nodes 目录名）
+- [`工作流/`](./工作流) — 现成的工作流 json 示例，可直接拖进 ComfyUI 网页界面使用
 
-另附一个独立网页小工具 `prompt_expander.html`（不依赖 ComfyUI，可直接用浏览器打开，用于快速调试提示词扩写效果）。
+## 安装节点
 
-`example_workflows/` 目录下附带一个现成工作流示例：`Grok提示词反推API调用流(无限制).json`。
+**方式一（推荐，只装这一套节点）：**
+把 `Comfyui-reverse_promp/` 这一个文件夹复制或软链到 `ComfyUI/custom_nodes/` 下：
+
+```bash
+# 直接从本仓库单独 clone 这个子目录，或复制文件夹都可以
+cp -r 反推节点与工作流/Comfyui-reverse_promp ComfyUI/custom_nodes/Comfyui-reverse_promp
+```
+
+**方式二（把整个 SillyDream-ComfyUI-Cloud 仓库当作一个 custom node 包装进去）：**
+
+```bash
+git clone https://github.com/qianchi7/SillyDream-ComfyUI-Cloud.git ComfyUI/custom_nodes/SillyDream-ComfyUI-Cloud
+```
+
+仓库根目录的 `__init__.py` 会自动汇总各子文件夹里的节点，两种方式都能正常加载出 `图像反推` / `文本扩写` 两个节点。方式二的好处是通过 ComfyUI-Manager 的「Update」按钮（`git pull`）就能自动拉取本仓库后续新增的所有节点/更新。
+
+安装依赖：
+
+```bash
+pip install requests Pillow numpy
+```
+
+重启 ComfyUI 后即可在节点搜索里找到 `Image/Prompt → 图像反推` / `文本扩写`。
+
+## 使用工作流示例
+
+把 `工作流/Grok提示词反推API调用流(无限制).json` 直接拖进 ComfyUI 网页界面即可加载。
 
 ## 节点参数
 
@@ -26,27 +47,6 @@
 | `language` | 仅图像反推节点：输出中文还是英文提示词 |
 | `system_prompt` / `user_prompt` | 仅图像反推节点：系统提示词与用户指令，需自行填写 |
 | `top_p` / `temperature` / `seed` / `max_tokens` | 生成参数，含义与 OpenAI Chat Completions 接口一致 |
-
-## 安装
-
-1. 把整个仓库 clone 到 ComfyUI 的 `custom_nodes` 目录下（推荐用 ComfyUI-Manager 的「Install via Git URL」，这样后续可以直接点「Update」自动拉取最新版）：
-   ```
-   git clone https://github.com/qianchi7/Comfyui--.git ComfyUI/custom_nodes/Comfyui--
-   ```
-2. 安装依赖：
-   ```
-   pip install requests Pillow numpy
-   ```
-3. 重启 ComfyUI。
-
-## 使用方法
-
-1. 在 ComfyUI 节点搜索里找到：`Image/Prompt → 图像反推` 或 `文本扩写`
-2. 图像反推节点需连接图像输入 (IMAGE)
-3. 把 `api_url` / `model_name` / `api_key` 换成你自己网关的信息
-4. 运行工作流获取结果
-
-也可以直接把 `example_workflows/Grok提示词反推API调用流(无限制).json` 拖进 ComfyUI 网页界面，作为现成模板参考。
 
 ## 故障排除
 
