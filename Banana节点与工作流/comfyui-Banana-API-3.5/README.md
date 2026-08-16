@@ -41,3 +41,9 @@ requests>=2.20.0
 ## License
 
 MIT
+
+## 来源与致谢
+
+本节点基于 [xinbao](https://github.com/98624017) 的 [comfyui-banana-li](https://github.com/98624017/comfyui-banana-li) 二次开发。
+原项目以 MIT 协议发布，其版权声明已按协议要求保留在本目录 `LICENSE` 中。
+本仓库在其基础上做了改动（新增端点延迟测速节点、批量并发调度、移除原代码中隐藏的后台地址切换逻辑等），修改部分版权归 qianchi7 所有。
