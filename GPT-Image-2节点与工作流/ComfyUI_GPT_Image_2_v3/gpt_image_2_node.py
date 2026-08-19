@@ -37,6 +37,16 @@ class GPTImage2Generator:
         "server disconnected",
     )
 
+    # === 协议写错（把 https 指向明文 HTTP 端口）的特征串 ===
+    # 这类失败重试多少次、超时调多大都没有意义，必须单独识别后直接告诉用户改 scheme。
+    _TLS_SCHEME_MISMATCH_HINTS = (
+        "wrong_version_number",
+        "wrong version number",
+        "unknown protocol",
+        "record layer failure",
+        "packet length too long",
+    )
+
     # === v2.2: 兼容"图床 Markdown / 裸 URL"返回格式 ===
     # 部分中转/relay 不走标准 Images API 结构(data[].b64_json / data[].url)，
     # 而是把生图结果伪装成"聊天回复"文本塞进任意字段(如 content/text/message)，
@@ -354,6 +364,7 @@ class GPTImage2Generator:
             except requests.ConnectionError as e:
                 net_exc = e
                 exc_text = str(e).lower()
+                self._raise_if_scheme_mismatch(e, exc_text, api_url)
                 if any(hint in exc_text for hint in self._REMOTE_CLOSED_HINTS):
                     net_exc_label = "remote_closed"
                 else:
@@ -368,6 +379,7 @@ class GPTImage2Generator:
             except Exception as e:
                 # 兜底：UnknownNetworkError / SSLError / ProtocolError 等
                 exc_text = str(e).lower()
+                self._raise_if_scheme_mismatch(e, exc_text, api_url)
                 if any(hint in exc_text for hint in self._REMOTE_CLOSED_HINTS):
                     net_exc = e
                     net_exc_label = "remote_closed"
@@ -551,6 +563,30 @@ class GPTImage2Generator:
             except Exception:
                 pass
         setattr(self._thread_local, 'session', None)
+
+    def _raise_if_scheme_mismatch(self, exc, exc_text, api_url):
+        """把「https 指向明文 HTTP 端口」单独识别出来，直接报明真因。
+
+        典型症状：SSLError [SSL: WRONG_VERSION_NUMBER] wrong version number。
+        含义是节点正在跟对端做 TLS 握手，但对端端口回的是明文 HTTP，
+        于是解析不出 TLS 版本号。跟 timeout / infinite_timeout / 反向代理配置
+        毫无关系，唯一的解是把地址的 https:// 改成 http://，所以这里不重试、
+        也不给出那些会把人带偏的超时建议。
+        """
+        if not any(hint in exc_text for hint in self._TLS_SCHEME_MISMATCH_HINTS):
+            return
+        if isinstance(api_url, str) and api_url.startswith("https://"):
+            fixed = "http://" + api_url[len("https://"):]
+        else:
+            fixed = api_url
+        raise RuntimeError(
+            f"[GPT Image 2] 接口地址协议写错了：{type(exc).__name__}: {exc}\n"
+            f"                  当前地址：{api_url}\n"
+            f"                  该端口提供的是明文 HTTP，但节点在跟它做 HTTPS/TLS 握手，握手阶段就失败了。\n"
+            f"                  解决办法：把地址的 https:// 改成 http://，即 {fixed}\n"
+            f"                  （工作流里请检查 base_url / 主路线 / 次级路线 这几个文本框）\n"
+            f"                  注意：这跟 timeout、infinite_timeout、反向代理配置都无关，调它们不会有任何效果。"
+        )
 
     def _resolve_request_timeout(self, timeout, infinite_timeout=False):
         '''返回 requests 使用的 (connect_timeout, read_timeout)。
