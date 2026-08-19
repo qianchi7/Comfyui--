@@ -248,7 +248,7 @@
         "Node name for S&R": "PrimitiveString"
       },
       "widgets_values": [
-        "https://179.255.148.127:12001"
+        "http://179.255.148.127:12001"
       ],
       "color": "#323",
       "bgcolor": "#535",
